@@ -47,7 +47,6 @@ fn main() {
         if target != "#shell" {
           return;
         }
-        println!("{:?}", message);
         if message.starts_with("$->") {
           let command = message.chars().skip(3).collect::<String>().to_lowercase();
           match command.as_str() {
