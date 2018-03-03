@@ -34,7 +34,7 @@ fn main() {
       Command::Response(Response::RPL_WELCOME, _, _) => {
         client.send_privmsg("NickServ", &format!("IDENTIFY ec2_shell {}", env::var("IRC_SHELL_NS_PASS").unwrap())).unwrap();
 
-        ::std::thread::sleep(std::time::Duration::from_secs(3));
+        thread::sleep(std::time::Duration::from_secs(3));
 
         client.send_join("#shell").unwrap();
       },
@@ -126,7 +126,7 @@ fn main() {
             let output_lines = Arc::clone(&output_lines);
             let sent_max = Arc::clone(&sent_max);
             let target = target.clone();
-            let handle = ::std::thread::spawn(move || {
+            let handle = thread::spawn(move || {
               for line in BufReader::new(reader).lines() {
                 if !quiet.load(Ordering::Relaxed) {
                   if output_lines.load(Ordering::SeqCst) >= MAX_RESPONSE {
