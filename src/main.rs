@@ -70,7 +70,7 @@ fn main() {
               client.send_privmsg(&target, "k").unwrap();
             },
             "quiet" => {
-              quiet.store(!quiet.load(Ordering::Relaxed), Ordering::Relaxed);
+              quiet.fetch_xor(true, Ordering::Relaxed);
               let message = if quiet.load(Ordering::Relaxed) {
                 "k, shutting up"
               } else {
