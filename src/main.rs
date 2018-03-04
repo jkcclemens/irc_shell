@@ -147,7 +147,12 @@ fn main() {
           for handle in handles {
             handle.join().unwrap();
           }
-          shell.wait().unwrap();
+          let status = shell.wait().unwrap();
+          if output_lines.load(Ordering::SeqCst) == 0 {
+            if let Some(code) = status.code() {
+              client.send_privmsg(&target, &format!("Exited with status code {}.", code)).unwrap();
+            }
+          }
         });
       }
       _ => {}
