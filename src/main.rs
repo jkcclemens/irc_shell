@@ -56,7 +56,7 @@ fn main() {
               SysCommand::new("sudo").args(&["docker", "container", "stop", "irc_shell"]).status().ok();
               SysCommand::new("sudo").args(&["docker", "container", "rm", "irc_shell"]).status().ok();
               SysCommand::new("sudo").args(&["docker", "container", "create", "-i", "--name", "irc_shell", "jkcclemens/irc_shell:v2"]).status().ok();
-              SysCommand::new("sudo").args(&["docker", "container", "start", "irc_shell"]).status().ok();
+              SysCommand::new("sudo").args(&["docker", "container", "start", "-m", "800M", "irc_shell"]).status().ok();
               client.send_privmsg(&target, "k").unwrap();
             },
             "stop" => {
@@ -64,7 +64,7 @@ fn main() {
               client.send_privmsg(&target, "k").unwrap();
             },
             "start" => {
-              SysCommand::new("sudo").args(&["docker", "container", "start", "irc_shell"]).status().ok();
+              SysCommand::new("sudo").args(&["docker", "container", "start", "-m", "800M", "irc_shell"]).status().ok();
               client.send_privmsg(&target, "k").unwrap();
             },
             "quiet" => {
