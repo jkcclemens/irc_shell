@@ -15,13 +15,15 @@ const MAX_RESPONSE: usize = 30;
 fn main() {
   dotenv::dotenv().ok();
 
-  let mut config = Config::default();
-  config.nickname = Some("ec2_shell".to_string());
-  config.realname = Some("ec2_shell".to_string());
-  config.username = Some("ec2_shell".to_string());
-  config.server = Some("irc.esper.net".to_string());
-  config.port = Some(6697);
-  config.use_ssl = Some(true);
+  let config = Config {
+    nickname: Some("ec2_shell".into()),
+    realname: Some("ec2_shell".into()),
+    username: Some("ec2_shell".into()),
+    server: Some("irc.esper.net".into()),
+    port: Some(6697),
+    use_ssl: Some(true),
+    .. Default::default()
+  };
 
   let client = Arc::new(IrcClient::from_config(config).unwrap());
 
